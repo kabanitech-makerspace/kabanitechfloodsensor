@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
-
+var wl = 0;
 //-----------------------------------------------------------------------------------------------------------------
 //mongodb URI
 const url = `mongodb+srv://kabanitech:makerspace@cluster0.f6tma.mongodb.net/<esp-data>?retryWrites=true&w=majority`
