@@ -4,11 +4,13 @@ const mongoose = require('mongoose')
 const path = require('path');
 
 const app = express();
-app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
-var wl = 0;
+app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({extended: true}));
+var wl = 60;
+
 //-----------------------------------------------------------------------------------------------------------------
-//mongodb URI
+//mongodb URL
 const url = `mongodb+srv://kabanitech:makerspace@cluster0.f6tma.mongodb.net/<esp-data>?retryWrites=true&w=majority`
 const connectionParams = {
     useNewUrlParser: true,
@@ -36,6 +38,7 @@ mongoose.connect(url, connectionParams)
 app.post('/', (req, res) => {
     const body = req.body;
     console.log(body);
+    wl = body.waterLevel;
     res.status(201).json({});
 });
 
@@ -46,6 +49,7 @@ app.get('/', (req, res) => {
 
 app.get('/python', (req, res) => {
     console.log('req received from python client');
+    console.log(wl);
     res.send({WaterLevel: wl});
 })
 
