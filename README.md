@@ -12,6 +12,6 @@
 <img src="/images/flood.png">
 
 <a href="https://github.com/kabanitech-makerspace/pythonDesktopNotificationClient">
-### Desktop notification client
+* Desktop notification client
 </a>
 <br>
