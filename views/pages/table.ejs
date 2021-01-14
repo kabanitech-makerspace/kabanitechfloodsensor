@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+</head>
+<body>
+    <table class="list" id="waterlevel" style="width:60%">
+        <thead>
+            <tr>
+                <th>DeviceID</th>
+                <th>dateTime</th>
+                <th>waterLevel</th>
+            </tr>
+        </thead>
+        <tbody>
+          <%data.forEach(function(doc){ %>   
+          <tr>
+            <td style="text-align:center"><%=doc.deviceID%></td>
+            <td style="text-align:center"><%=doc.dateTime%></td>
+            <td style="text-align:center"><%=doc.waterLevel%></td>
+          </tr>
+          <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
