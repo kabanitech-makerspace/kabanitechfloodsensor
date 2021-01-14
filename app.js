@@ -14,7 +14,7 @@ var DBconn = new Boolean(false);
 //-----------------------------------------------------------------------------------------------------------------
 //mongodb
 var dbo;
-const url = `mongodb+srv://kabanitech:makerspace@cluster0.f6tma.mongodb.net/esp-data?retryWrites=true&w=majority`
+const url = `mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.f6tma.mongodb.net/<DBname>?retryWrites=true&w=majority`
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     console.log("Database created!");
