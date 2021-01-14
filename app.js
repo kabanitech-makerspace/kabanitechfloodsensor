@@ -10,7 +10,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
-var wl = 60;
 var DBconn = new Boolean(false);
 //-----------------------------------------------------------------------------------------------------------------
 //mongodb
@@ -51,6 +50,7 @@ app.post('/esp', (req, res) => {
         dateTime: getTime("dt"),
         waterLevel: req.body.waterLevel
     };
+    wl=req.body.waterLevel;
     console.log(newDoc);
     dbo.collection(getTime("d")).insertOne(newDoc, function(err, res) {
         if (err) throw err;
@@ -65,7 +65,7 @@ app.get('/raw', (req, res) => {
         console.log(result);
         res.send({data : result});
       });
-})
+});
 
 app.get('/table', (req, res) => {
     dbo.collection(getTime("d")).find({}).toArray(function(err, result) {
@@ -73,13 +73,24 @@ app.get('/table', (req, res) => {
         console.log(result);
         res.render("pages/table", { data: result });
       });
-})
+});
+
+app.get('/graph', (req, res) => {
+    dbo.collection(getTime("d")).find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.render("pages/table", { data: result });
+      });
+});
 
 app.get('/python', (req, res) => {
     console.log('req received from python client');
-    console.log(wl);
-    res.send({ WaterLevel: wl });
-})
+    dbo.collection(getTime("d")).find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result[(result.length)-1].waterLevel);
+        res.send({ WaterLevel: result[(result.length)-1].waterLevel });
+      });
+});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(" Server is running at port 3000 \r\n ☼ http://localhost:3000");
